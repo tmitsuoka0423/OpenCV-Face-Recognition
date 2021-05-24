@@ -12,14 +12,14 @@ import cv2
 # multiple cascades: https://github.com/Itseez/opencv/tree/master/data/haarcascades
 faceCascade = cv2.CascadeClassifier('Cascades/haarcascade_frontalface_default.xml')
 eyeCascade = cv2.CascadeClassifier('Cascades/haarcascade_eye.xml')
- 
-cap = cv2.VideoCapture(0)
+
+cap = cv2.VideoCapture(-1)
 cap.set(3,640) # set Width
 cap.set(4,480) # set Height
 
 while True:
     ret, img = cap.read()
-    img = cv2.flip(img, -1)
+    
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     faces = faceCascade.detectMultiScale(
         gray,
@@ -42,7 +42,7 @@ while True:
         
         for (ex, ey, ew, eh) in eyes:
             cv2.rectangle(roi_color, (ex, ey), (ex + ew, ey + eh), (0, 255, 0), 2)
-               
+
         cv2.imshow('video', img)
 
     k = cv2.waitKey(30) & 0xff

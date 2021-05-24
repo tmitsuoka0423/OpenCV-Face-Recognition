@@ -12,13 +12,13 @@ faceCascade = cv2.CascadeClassifier('Cascades/haarcascade_frontalface_default.xm
 eyeCascade = cv2.CascadeClassifier('Cascades/haarcascade_eye.xml')
 smileCascade = cv2.CascadeClassifier('Cascades/haarcascade_smile.xml')
 
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(-1)
 cap.set(3,640) # set Width
 cap.set(4,480) # set Height
 
 while True:
     ret, img = cap.read()
-    img = cv2.flip(img, -1)
+    
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     faces = faceCascade.detectMultiScale(
         gray,
@@ -41,7 +41,6 @@ while True:
         
         for (ex, ey, ew, eh) in eyes:
             cv2.rectangle(roi_color, (ex, ey), (ex + ew, ey + eh), (0, 255, 0), 2)
-               
         
         smile = smileCascade.detectMultiScale(
             roi_gray,
